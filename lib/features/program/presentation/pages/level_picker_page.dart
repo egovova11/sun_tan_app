@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 
-import '../../../domain/rules/goltis_rules.dart';
+import '../../domain/rules/goltis_rules.dart';
 
 class LevelPickerPage extends StatelessWidget {
   const LevelPickerPage({super.key});
