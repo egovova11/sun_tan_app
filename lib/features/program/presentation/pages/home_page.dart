@@ -82,7 +82,29 @@ class HomePage extends StatelessWidget {
                 TextButton.icon(
                   icon: const Icon(Icons.restart_alt),
                   label: const Text('Reset Program'),
-                  onPressed: () => context.read<ProgramBloc>().add(const ResetProgram()),
+                  onPressed: () async {
+                    final confirmed = await showDialog<bool>(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: const Text('Reset program?'),
+                        content: const Text('This will clear your progress and start from level 1.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(ctx).pop(false),
+                            child: const Text('Cancel'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () => Navigator.of(ctx).pop(true),
+                            child: const Text('Reset'),
+                          ),
+                        ],
+                      ),
+                    );
+                    if (!context.mounted) return;
+                    if (confirmed == true) {
+                      context.read<ProgramBloc>().add(const ResetProgram());
+                    }
+                  },
                 ),
               ],
             ),
