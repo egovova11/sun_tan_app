@@ -36,10 +36,13 @@ dependencies:
   cupertino_icons: ^1.0.8
   equatable: ^2.0.5
   path_provider: ^2.1.4
+  flutter_bloc: ^8.1.6
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  bloc_test: ^9.1.7
+  mocktail: ^1.0.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
