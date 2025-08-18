@@ -20,7 +20,10 @@ class SessionPlan extends Equatable {
   const SessionPlan({required this.level, required this.steps});
 
   factory SessionPlan.fromLevel(Level level) {
-    Duration minutes(double m) => Duration(seconds: (m * 60).round());
+    Duration minutes(double m) {
+      final seconds = (m * 60).ceil();
+      return Duration(seconds: seconds < 1 ? 1 : seconds);
+    }
     return SessionPlan(
       level: level,
       steps: [
