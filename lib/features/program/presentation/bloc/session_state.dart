@@ -8,12 +8,14 @@ class SessionState extends Equatable {
   final int stepIndex; // -1 when idle
   final int secondsElapsedInStep;
   final bool isActive;
+  final bool isCompleted;
 
   const SessionState({
     this.plan,
     this.stepIndex = -1,
     this.secondsElapsedInStep = 0,
     this.isActive = false,
+    this.isCompleted = false,
   });
 
   bool get isIdle => plan == null || stepIndex < 0;
@@ -32,17 +34,19 @@ class SessionState extends Equatable {
     int? stepIndex,
     int? secondsElapsedInStep,
     bool? isActive,
+    bool? isCompleted,
   }) {
     return SessionState(
       plan: plan ?? this.plan,
       stepIndex: stepIndex ?? this.stepIndex,
       secondsElapsedInStep: secondsElapsedInStep ?? this.secondsElapsedInStep,
       isActive: isActive ?? this.isActive,
+      isCompleted: isCompleted ?? this.isCompleted,
     );
   }
 
   @override
-  List<Object?> get props => [plan, stepIndex, secondsElapsedInStep, isActive];
+  List<Object?> get props => [plan, stepIndex, secondsElapsedInStep, isActive, isCompleted];
 }
 
 

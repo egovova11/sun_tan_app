@@ -16,7 +16,7 @@ class SessionPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Session')),
       body: BlocConsumer<SessionBloc, SessionState>(
         listener: (context, state) {
-          if (!state.isActive && !state.isIdle) {
+          if (state.isCompleted) {
             // session completed
             context.read<ProgramBloc>().add(CompleteCurrentLevel(DateTime.now().toUtc()));
             Navigator.of(context).pop();
@@ -50,25 +50,18 @@ class SessionPage extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () => context.read<SessionBloc>().add(const PauseSession()),
-                        icon: const Icon(Icons.pause),
-                        label: const Text('Pause'),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () => context.read<SessionBloc>().add(const ResumeSession()),
-                        icon: const Icon(Icons.play_arrow),
-                        label: const Text('Resume'),
-                      ),
-                    ),
-                  ],
-                ),
+                if (state.isActive)
+                  ElevatedButton.icon(
+                    onPressed: () => context.read<SessionBloc>().add(const PauseSession()),
+                    icon: const Icon(Icons.pause),
+                    label: const Text('Pause'),
+                  )
+                else
+                  ElevatedButton.icon(
+                    onPressed: () => context.read<SessionBloc>().add(const ResumeSession()),
+                    icon: const Icon(Icons.play_arrow),
+                    label: const Text('Resume'),
+                  ),
               ],
             ),
           );

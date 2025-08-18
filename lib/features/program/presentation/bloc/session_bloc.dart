@@ -58,7 +58,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
     await _tickerSub?.cancel();
     final isLastStep = state.stepIndex >= state.plan!.steps.length - 1;
     if (isLastStep) {
-      emit(state.copyWith(isActive: false));
+      emit(state.copyWith(isActive: false, isCompleted: true));
       if (onSessionComplete != null) await onSessionComplete!();
       return;
     }
@@ -71,7 +71,7 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
 
   Future<void> _onFinish(FinishSession event, Emitter<SessionState> emit) async {
     await _tickerSub?.cancel();
-    emit(state.copyWith(isActive: false));
+    emit(state.copyWith(isActive: false, isCompleted: true));
     if (onSessionComplete != null) await onSessionComplete!();
   }
 

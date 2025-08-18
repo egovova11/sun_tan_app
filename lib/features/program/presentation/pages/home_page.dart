@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../di/di.dart';
 import '../../domain/rules/goltis_rules.dart';
 import '../bloc/program_bloc.dart';
 import '../bloc/program_event.dart';
@@ -73,6 +72,7 @@ class HomePage extends StatelessWidget {
                     final selected = await Navigator.of(context).push<int>(
                       MaterialPageRoute(builder: (_) => const LevelPickerPage()),
                     );
+                    if (!context.mounted) return;
                     if (selected != null) {
                       context.read<ProgramBloc>().add(OverrideLevel(selected));
                     }
